@@ -58,12 +58,12 @@
 
     function initiateClock() {
       time = INITIAL_TIME;
-      updateTime(time);
       if (inter) {
         clearInterval(inter);
       }
       startButton.style = "display:block"
       started = false;
+      updateTime(time);
     }
 
     function decrement() {
