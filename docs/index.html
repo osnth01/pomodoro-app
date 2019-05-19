@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Pomodoro App</title>
+  <title>Focus Timer</title>
 
   <style>
     body {
@@ -42,7 +42,7 @@
   </style>
 </head>
 <body>
-  <h1 class="headline">Pomodoro App</h1>
+  <h1 class="headline">Focus Timer</h1>
 
   <div id="timer"></div>
   <button id="start-button">START</button>
@@ -51,13 +51,14 @@
     var started = false;
     var timer = document.getElementById('timer');
     var startButton = document.getElementById('start-button');
+    var title = document.getElementsByTagName('title')[0];
     var INITIAL_TIME = 1800;
     var time = INITIAL_TIME;
     var inter;
 
     function initiateClock() {
       time = INITIAL_TIME;
-      timer.innerText = readableTime(time);
+      updateTime(time);
       if (inter) {
         clearInterval(inter);
       }
@@ -68,7 +69,7 @@
     function decrement() {
       if (time > 0) {
         time--;
-        timer.innerText = readableTime(time);
+        updateTime(time);
       } else {
         initiateClock();
       }
@@ -83,9 +84,6 @@
       }
     }
 
-    startButton.onclick = startTimer;
-    initiateClock();
-
     function readableTime(time) {
       var seconds = time % 60;
       var minutes = (time - seconds) / 60;
@@ -98,6 +96,18 @@
       }
       return minutes + ":" + seconds;
     }
+
+    function updateTime(time) {
+      timer.innerText = readableTime(time);
+      if (started) {
+        title.innerText = "Focus Timer - " + readableTime(time);
+      } else {
+        title.innerText = "Focus Timer";
+      }
+    }
+
+    startButton.onclick = startTimer;
+    initiateClock();
   </script>
 </body>
 </html>
