@@ -52,12 +52,12 @@
     var timer = document.getElementById('timer');
     var startButton = document.getElementById('start-button');
     var INITIAL_TIME = 1800;
-    var seconds = INITIAL_TIME;
+    var time = INITIAL_TIME;
     var inter;
 
     function initiateClock() {
-      seconds = INITIAL_TIME;
-      timer.innerText = seconds;
+      time = INITIAL_TIME;
+      timer.innerText = readableTime(time);
       if (inter) {
         clearInterval(inter);
       }
@@ -66,9 +66,9 @@
     }
 
     function decrement() {
-      if (seconds > 0) {
-        seconds--;
-        timer.innerText = seconds;
+      if (time > 0) {
+        time--;
+        timer.innerText = readableTime(time);
       } else {
         initiateClock();
       }
@@ -85,6 +85,19 @@
 
     startButton.onclick = startTimer;
     initiateClock();
+
+    function readableTime(time) {
+      var seconds = time % 60;
+      var minutes = (time - seconds) / 60;
+
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      }
+      if (seconds < 10) {
+        seconds = "0" + seconds;
+      }
+      return minutes + ":" + seconds;
+    }
   </script>
 </body>
 </html>
