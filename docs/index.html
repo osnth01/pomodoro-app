@@ -12,6 +12,7 @@
       color: white;
       margin: 0px;
       font-family: sans-serif;
+      font-weight: 100;
     }
 
     .headline {
@@ -26,7 +27,6 @@
       width: 200px;
       color: white;
       font-size: 20px;
-      font-weight: 100;
       margin: 0 auto;
       display: block;
     }
@@ -37,7 +37,6 @@
 
     #timer {
       font-size: 50px;
-      font-weight: 100;
       text-align: center;
     }
   </style>
@@ -53,23 +52,28 @@
     var timer = document.getElementById('timer');
     var startButton = document.getElementById('start-button');
     var INITIAL_TIME = 1800;
-    timer.innerText = INITIAL_TIME;
     var seconds = INITIAL_TIME;
+    var inter;
+
+    function initiateClock() {
+      seconds = INITIAL_TIME;
+      timer.innerText = seconds;
+      if (inter) {
+        clearInterval(inter);
+      }
+      startButton.style = "display:block"
+      started = false;
+    }
 
     function decrement() {
       if (seconds > 0) {
         seconds--;
         timer.innerText = seconds;
       } else {
-        clearInterval(inter);
-        seconds = INITIAL_TIME;
-        timer.innerText = INITIAL_TIME;
-        started = false;
-        startButton.style = "display:block"
+        initiateClock();
       }
     }
 
-    var inter;
     function startTimer() {
       if (!started) {
         startButton.style = "display:none"
@@ -80,6 +84,7 @@
     }
 
     startButton.onclick = startTimer;
+    initiateClock();
   </script>
 </body>
 </html>
