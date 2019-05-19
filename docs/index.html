@@ -1,13 +1,85 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>PomodoroApp</title>
-  <base href="/pomodoro-app/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="stylesheet" href="styles.3ff695c00d717f2d2a11.css"></head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Pomodoro App</title>
+
+  <style>
+    body {
+      background: #E54D42;
+      color: white;
+      margin: 0px;
+      font-family: sans-serif;
+    }
+
+    .headline {
+      font-weight: 100;
+      text-align: center;
+    }
+
+    #start-button {
+      background: #DC382E;
+      border: none;
+      height: 50px;
+      width: 200px;
+      color: white;
+      font-size: 20px;
+      font-weight: 100;
+      margin: 0 auto;
+      display: block;
+    }
+    #start-button:hover {
+      cursor: pointer;
+      background: #B71411;
+    }
+
+    #timer {
+      font-size: 50px;
+      font-weight: 100;
+      text-align: center;
+    }
+  </style>
+</head>
 <body>
-  <app-root></app-root>
-<script type="text/javascript" src="runtime.26209474bfa8dc87a77c.js"></script><script type="text/javascript" src="es2015-polyfills.c5dd28b362270c767b34.js" nomodule></script><script type="text/javascript" src="polyfills.8bbb231b43165d65d357.js"></script><script type="text/javascript" src="main.ab2c9d3da3ec444c00f5.js"></script></body>
+  <h1 class="headline">Pomodoro App</h1>
+
+  <div id="timer"></div>
+  <button id="start-button">START</button>
+
+  <script>
+    var started = false;
+    var timer = document.getElementById('timer');
+    var startButton = document.getElementById('start-button');
+    var INITIAL_TIME = 1800;
+    timer.innerText = INITIAL_TIME;
+    var seconds = INITIAL_TIME;
+
+    function decrement() {
+      if (seconds > 0) {
+        seconds--;
+        timer.innerText = seconds;
+      } else {
+        clearInterval(inter);
+        seconds = INITIAL_TIME;
+        timer.innerText = INITIAL_TIME;
+        started = false;
+        startButton.style = "display:block"
+      }
+    }
+
+    var inter;
+    function startTimer() {
+      if (!started) {
+        startButton.style = "display:none"
+        started = true;
+        decrement();
+        inter = setInterval(function(){ decrement(); }, 1000);
+      }
+    }
+
+    startButton.onclick = startTimer;
+  </script>
+</body>
 </html>
