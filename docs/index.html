@@ -57,7 +57,6 @@
     var title = document.getElementsByTagName('title')[0];
     var body = document.getElementsByTagName('body')[0];
     var headline = document.getElementsByClassName('headline')[0];
-    console.log(headline);
     var INITIAL_TIME = 1800;
     var time = INITIAL_TIME;
     var inter;
@@ -112,10 +111,10 @@
     }
 
     function updateTime(time) {
-      timer.innerText = readableTime(time);
-      if (started) {
-        title.innerText = "Focus Timer - " + readableTime(time);
-      } else {
+      var newTime = readableTime(time);
+      timer.innerText = newTime;
+      title.innerText = "Focus Timer - " + newTime;
+      if (!started) {
         title.innerText = "Focus Timer";
       }
     }
