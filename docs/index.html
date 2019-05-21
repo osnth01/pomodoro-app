@@ -48,15 +48,22 @@
   <button id="start-button">START</button>
 
   <script>
+    var rampUp = "#2ECC40";
+    var focus = "#E54D42";
+
     var started = false;
     var timer = document.getElementById('timer');
     var startButton = document.getElementById('start-button');
     var title = document.getElementsByTagName('title')[0];
+    var body = document.getElementsByTagName('body')[0];
+    var headline = document.getElementsByClassName('headline')[0];
+    console.log(headline);
     var INITIAL_TIME = 1800;
     var time = INITIAL_TIME;
     var inter;
 
     function initiateClock() {
+      headline.innerText = "Focus Timer";
       time = INITIAL_TIME;
       if (inter) {
         clearInterval(inter);
@@ -69,6 +76,13 @@
     function decrement() {
       if (time > 0) {
         time--;
+        if (time >= 1500) {
+          headline.innerText = "Ramp Up";
+          body.style = "background:" + rampUp;
+        } else if (time === 1500 - 1) {
+          headline.innerText = "Deep Focus";
+          body.style = "background:" + focus;
+        }
         updateTime(time);
       } else {
         initiateClock();
